@@ -1,0 +1,91 @@
+/* -------------------------------------------------
+   STEP 1 : CREATE DATABASE
+------------------------------------------------- */
+CREATE DATABASE employee_db;
+USE employee_db;
+
+
+/* -------------------------------------------------
+   STEP 2 : CREATE TABLE
+------------------------------------------------- */
+CREATE TABLE employee(
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(30),
+    salary INT,
+    dept_id INT
+);
+
+
+/* -------------------------------------------------
+   STEP 3 : INSERT RECORDS
+------------------------------------------------- */
+INSERT INTO employee VALUES
+(101,'Ajay',70000,1),
+(102,'Ram',80000,2),
+(103,'Radhika',60000,3),
+(104,'Radha',90000,4);
+
+SELECT * FROM employee;
+
+
+/* =================================================
+   PART A : DCL COMMANDS (Data Control Language)
+================================================= */
+
+/* Create User */
+CREATE USER 'shreya'@'localhost'
+IDENTIFIED BY '1111';
+
+/* Check Permission */
+SHOW GRANTS FOR 'shreya'@'localhost';
+
+/* Grant Permission */
+GRANT SELECT, UPDATE, DELETE
+ON employee_db.employee
+TO 'shreya'@'localhost';
+
+/* Verify Grant */
+SHOW GRANTS FOR 'shreya'@'localhost';
+
+/* Revoke Permission */
+REVOKE DELETE
+ON employee_db.employee
+FROM 'shreya'@'localhost';
+
+/* Verify Revoke */
+SHOW GRANTS FOR 'shreya'@'localhost';
+
+
+/* =================================================
+   PART B : TCL COMMANDS (Transaction Control Language)
+================================================= */
+
+/* Disable Auto Commit */
+SET AUTOCOMMIT=0;
+
+/* Start Transaction */
+START TRANSACTION;
+
+/* Insert Records */
+INSERT INTO employee VALUES(105,'Riya',75000,5);
+INSERT INTO employee VALUES(106,'Priya',90000,6);
+
+/* Create Savepoint */
+SAVEPOINT a;
+
+/* Update Record */
+UPDATE employee
+SET salary = salary + 10000
+WHERE emp_id = 105;
+
+/* Create Another Savepoint */
+SAVEPOINT b;
+
+/* Rollback to Savepoint */
+ROLLBACK TO a;
+
+/* Display Table */
+SELECT * FROM employee;
+
+/* Commit Changes */
+COMMIT;

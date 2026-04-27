@@ -1,0 +1,82 @@
+/* --------------------------------
+   STEP 1 : CREATE DATABASE
+--------------------------------*/
+DROP DATABASE IF EXISTS proc_db;
+CREATE DATABASE proc_db;
+USE proc_db;
+
+
+/* --------------------------------
+   STEP 2 : CREATE TABLE
+--------------------------------*/
+CREATE TABLE student(
+    id INT PRIMARY KEY,
+    name VARCHAR(30),
+    marks INT,
+    result VARCHAR(10)
+);
+
+
+/* --------------------------------
+   STEP 3 : INSERT RECORDS
+--------------------------------*/
+INSERT INTO student VALUES
+(1,'Shreya',85,'Pass'),
+(2,'Riya',35,'Fail'),
+(3,'Amit',77,NULL);
+
+
+/* --------------------------------
+   STEP 4 : CREATE PROCEDURE
+--------------------------------*/
+DELIMITER $$
+
+CREATE PROCEDURE studenttablet1(IN m1 INT)
+BEGIN
+    IF m1 > 35 THEN
+        UPDATE student SET result='Pass'
+        WHERE marks = m1;
+    ELSE
+        UPDATE student SET result='Fail'
+        WHERE marks = m1;
+    END IF;
+END $$
+
+DELIMITER ;
+
+
+/* --------------------------------
+   STEP 5 : CALL PROCEDURE
+--------------------------------*/
+CALL studenttablet1(77);
+
+
+/* --------------------------------
+   STEP 6 : CREATE TRIGGER
+--------------------------------*/
+DELIMITER $$
+
+CREATE TRIGGER check_result
+BEFORE INSERT ON student
+FOR EACH ROW
+BEGIN
+    IF NEW.marks >= 40 THEN
+        SET NEW.result = 'Pass';
+    ELSE
+        SET NEW.result = 'Fail';
+    END IF;
+END $$
+
+DELIMITER ;
+
+
+/* --------------------------------
+   STEP 7 : TEST TRIGGER
+--------------------------------*/
+INSERT INTO student VALUES(4,'Anamika',30,NULL);
+
+
+/* --------------------------------
+   STEP 8 : DISPLAY RESULT
+--------------------------------*/
+SELECT * FROM student;

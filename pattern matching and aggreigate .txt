@@ -1,0 +1,104 @@
+/* --------------------------------
+   STEP 1 : CREATE DATABASE
+--------------------------------*/
+DROP DATABASE IF EXISTS emp_db;
+CREATE DATABASE emp_db;
+USE emp_db;
+
+
+/* --------------------------------
+   STEP 2 : CREATE TABLE
+--------------------------------*/
+CREATE TABLE employees(
+    emp_id INT,
+    empname VARCHAR(20),
+    dept VARCHAR(20),
+    experience INT,
+    salary INT
+);
+
+
+/* --------------------------------
+   STEP 3 : INSERT RECORDS
+--------------------------------*/
+INSERT INTO employees VALUES
+(101,'shreya','aiml',10,100000),
+(102,'prarthi','hr',20,200000),
+(112,'kunal','mech',12,220000),
+(106,'kartik','bca',30,30000),
+(108,'siddhi','it',30,30000),
+(123,'ananya','extc',60,11000),
+(124,'shravita','extc',60,11000),
+(125,'isha','extc',60,11000),
+(126,'mansi','extc',60,11000),
+(127,'sarah','extc',60,11000);
+
+
+/* =====================================================
+        PART A : PATTERN MATCHING (LIKE)
+=====================================================*/
+
+-- Names starting with 's'
+SELECT empname FROM employees
+WHERE empname LIKE 's%';
+
+-- Names ending with 'i'
+SELECT empname FROM employees
+WHERE empname LIKE '%i';
+
+-- Exactly 4 letters
+SELECT empname FROM employees
+WHERE empname LIKE '____';
+
+-- Second letter 'a'
+SELECT empname FROM employees
+WHERE empname LIKE '_a%';
+
+-- Name containing 'k'
+SELECT empname FROM employees
+WHERE empname LIKE '%k%';
+
+-- Names starting with 'm'
+SELECT empname FROM employees
+WHERE empname LIKE 'm%';
+
+
+/* =====================================================
+        PART B : AGGREGATE FUNCTIONS
+=====================================================*/
+
+-- Count employees
+SELECT COUNT(*) AS Total_Employees FROM employees;
+
+-- Maximum salary
+SELECT MAX(salary) AS Highest_Salary FROM employees;
+
+-- Minimum salary
+SELECT MIN(salary) AS Lowest_Salary FROM employees;
+
+-- Average salary
+SELECT AVG(salary) AS Average_Salary FROM employees;
+
+-- Total salary
+SELECT SUM(salary) AS Total_Salary FROM employees;
+
+
+/* =====================================================
+        PART C : GROUP BY + HAVING
+=====================================================*/
+
+-- Department wise employee count
+SELECT dept, COUNT(*) 
+FROM employees
+GROUP BY dept;
+
+-- Department wise average salary
+SELECT dept, AVG(salary)
+FROM employees
+GROUP BY dept;
+
+-- Departments having salary > 20000 average
+SELECT dept, AVG(salary)
+FROM employees
+GROUP BY dept
+HAVING AVG(salary) > 20000;

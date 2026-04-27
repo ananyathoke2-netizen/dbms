@@ -1,0 +1,98 @@
+/* --------------------------------
+   STEP 1 : CREATE DATABASE
+--------------------------------*/
+DROP DATABASE IF EXISTS join_op;
+CREATE DATABASE join_op;
+USE join_op;
+
+
+/* --------------------------------
+   STEP 2 : CREATE TABLES
+--------------------------------*/
+
+-- Employee Table
+CREATE TABLE employee(
+    emp_id INT,
+    emp_name VARCHAR(30),
+    dept_id INT,
+    salary INT
+);
+
+-- Department Table
+CREATE TABLE department(
+    dept_id INT,
+    dept_name VARCHAR(30),
+    location VARCHAR(30)
+);
+
+
+/* --------------------------------
+   STEP 3 : INSERT DATA
+--------------------------------*/
+
+INSERT INTO employee VALUES
+(1,'Shruti',11,30000),
+(2,'Iffat',12,35000),
+(3,'Shravani',13,40000),
+(4,'Anushka',14,45000),
+(5,'Saniya',16,28000);
+
+INSERT INTO department VALUES
+(11,'HR','Ground Floor'),
+(12,'MECH','Second Floor'),
+(13,'TECH','Third Floor'),
+(14,'BIOTECH','Fourth Floor'),
+(15,'ADMIN','First Floor');
+
+
+/* =====================================================
+        JOIN OPERATIONS
+=====================================================*/
+
+-- 1️⃣ INNER JOIN (Matching records only)
+SELECT e.emp_name, d.dept_name
+FROM employee e
+INNER JOIN department d
+ON e.dept_id = d.dept_id;
+
+
+-- 2️⃣ LEFT JOIN (All employees)
+SELECT e.emp_name, d.dept_name
+FROM employee e
+LEFT JOIN department d
+ON e.dept_id = d.dept_id;
+
+
+-- 3️⃣ RIGHT JOIN (All departments)
+SELECT e.emp_name, d.dept_name
+FROM employee e
+RIGHT JOIN department d
+ON e.dept_id = d.dept_id;
+
+
+-- 4️⃣ CROSS JOIN (Cartesian product)
+SELECT e.emp_name, d.dept_name
+FROM employee e
+CROSS JOIN department d;
+
+
+/* =====================================================
+        SET OPERATIONS
+=====================================================*/
+
+-- UNION (Combine unique dept_id)
+SELECT dept_id FROM employee
+UNION
+SELECT dept_id FROM department;
+
+
+-- INTERSECT (Common dept_id)
+SELECT dept_id FROM employee
+WHERE dept_id IN
+(SELECT dept_id FROM department);
+
+
+-- EXCEPT (Employee dept not in department)
+SELECT dept_id FROM employee
+WHERE dept_id NOT IN
+(SELECT dept_id FROM department);

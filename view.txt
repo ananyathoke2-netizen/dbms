@@ -1,0 +1,71 @@
+/* -------------------------------
+   STEP 1 : CREATE DATABASE
+--------------------------------*/
+DROP DATABASE IF EXISTS CompanyDB;
+CREATE DATABASE CompanyDB;
+USE CompanyDB;
+
+
+/* -------------------------------
+   STEP 2 : CREATE TABLE
+--------------------------------*/
+CREATE TABLE Employees(
+    Emp_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Department VARCHAR(50),
+    Salary INT
+);
+
+
+/* -------------------------------
+   STEP 3 : INSERT RECORDS
+--------------------------------*/
+INSERT INTO Employees VALUES
+(1,'Amit','HR',30000),
+(2,'Neha','IT',45000),
+(3,'Rahul','IT',50000),
+(4,'Sneha','Finance',35000);
+
+
+/* -------------------------------
+   STEP 4 : DISPLAY TABLE
+--------------------------------*/
+SELECT * FROM Employees;
+
+
+/* -------------------------------
+   STEP 5 : CREATE VIEW
+   (IT Department Employees)
+--------------------------------*/
+CREATE VIEW IT_Views AS
+SELECT Name, Salary
+FROM Employees
+WHERE Department='IT';
+
+
+/* -------------------------------
+   STEP 6 : DISPLAY VIEW
+--------------------------------*/
+SELECT * FROM IT_Views;
+
+
+/* -------------------------------
+   STEP 7 : MODIFY VIEW
+   (Salary > 40000)
+--------------------------------*/
+CREATE OR REPLACE VIEW IT_Views AS
+SELECT Name, Salary
+FROM Employees
+WHERE Salary > 40000;
+
+
+/* -------------------------------
+   STEP 8 : DISPLAY UPDATED VIEW
+--------------------------------*/
+SELECT * FROM IT_Views;
+
+
+/* -------------------------------
+   STEP 9 : DROP VIEW
+--------------------------------*/
+DROP VIEW IT_Views;

@@ -1,0 +1,56 @@
+/* --------------------------------
+   STEP 1 : CREATE DATABASE
+--------------------------------*/
+DROP DATABASE IF EXISTS company;
+CREATE DATABASE company;
+USE company;
+
+
+/* --------------------------------
+   STEP 2 : CREATE TABLE
+--------------------------------*/
+CREATE TABLE employee(
+    eid INT,
+    name VARCHAR(20),
+    salary INT,
+    department VARCHAR(20)
+);
+
+
+/* --------------------------------
+   STEP 3 : INSERT RECORDS
+--------------------------------*/
+INSERT INTO employee VALUES
+(1,'Puja',20000,'IT'),
+(2,'Tejas',25000,'CSE'),
+(3,'Sakshi',35000,'AI'),
+(4,'Sujal',27000,'ENTC');
+
+
+/* --------------------------------
+   STEP 4 : SELECT (READ DATA)
+--------------------------------*/
+SELECT * FROM employee;
+
+SELECT name, salary FROM employee;
+
+
+/* --------------------------------
+   STEP 5 : UPDATE RECORD
+--------------------------------*/
+UPDATE employee
+SET name='Saniya'
+WHERE eid=4;
+
+
+/* --------------------------------
+   STEP 6 : DELETE RECORD
+--------------------------------*/
+DELETE FROM employee
+WHERE eid=2;
+
+
+/* --------------------------------
+   STEP 7 : VIEW RESULT
+--------------------------------*/
+SELECT * FROM employee;

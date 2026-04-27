@@ -1,0 +1,64 @@
+/* --------------------------------
+   STEP 1 : CREATE DATABASE
+--------------------------------*/
+DROP DATABASE IF EXISTS college;
+CREATE DATABASE college;
+USE college;
+
+
+/* --------------------------------
+   STEP 2 : CREATE TABLE
+--------------------------------*/
+CREATE TABLE student(
+    id INT,
+    name VARCHAR(30),
+    age INT,
+    department VARCHAR(20)
+);
+
+
+/* --------------------------------
+   STEP 3 : DESCRIBE TABLE
+--------------------------------*/
+DESCRIBE student;
+
+
+/* --------------------------------
+   STEP 4 : ALTER TABLE
+--------------------------------*/
+
+-- Add column
+ALTER TABLE student ADD marks INT;
+
+-- Modify column datatype
+ALTER TABLE student MODIFY age INT(3);
+
+-- Rename column
+ALTER TABLE student CHANGE name student_name VARCHAR(30);
+
+-- Drop column
+ALTER TABLE student DROP marks;
+
+
+/* --------------------------------
+   STEP 5 : RENAME TABLE
+--------------------------------*/
+RENAME TABLE student TO student_info;
+
+
+/* --------------------------------
+   STEP 6 : TRUNCATE TABLE
+--------------------------------*/
+TRUNCATE TABLE student_info;
+
+
+/* --------------------------------
+   STEP 7 : DROP TABLE
+--------------------------------*/
+DROP TABLE student_info;
+
+
+/* --------------------------------
+   STEP 8 : DROP DATABASE
+--------------------------------*/
+DROP DATABASE college;
